@@ -24,6 +24,7 @@ func distroy(filePath string, writeTimes int) {
 		}
 		file.Write(getRandomData())
 	}
+        os.Remove(filePath)
 }
 
 func run(basePath string, writeTimes int) {
