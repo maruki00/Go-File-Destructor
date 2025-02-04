@@ -42,7 +42,7 @@ func run(basePath string, writeTimes int) {
 		}
 		distroy(path.Join(basePath, file.Name()), writeTimes)
 		counter++
-		print("\r\rfiles : ", counter, ", process : ", (lenFiles*counter)/100, " %")
+		print("\r\rfiles : ", counter)
 	}
 }
 
