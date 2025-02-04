@@ -1,8 +1,12 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"math"
 	"math/rand"
+	"os"
+	"path"
 )
 
 func getRandomData() []byte {
@@ -15,10 +19,30 @@ func getRandomData() []byte {
 }
 func distroy(filePath string, writeTimes int) {
 	for range writeTimes {
-
+		print(".")
+		file, err := os.OpenFile(filePath, os.O_RDWR, 0777)
+		if err != nil {
+			continue
+		}
+		file.Write(getRandomData())
 	}
 }
 
 func main() {
+	var basePath string
+	var timeToWrite int
+	flag.StringVar(&basePath, "path", "", "specify the path of files")
+	flag.IntVar(&timeToWrite, "times", 1000, "specify how many times you want to write on file")
+	flag.Parse()
+	fmt.Println("Process Started")
+	dir, err := os.ReadDir(basePath)
+	if err != nil {
+		fmt.Println("Error : ", err.Error())
+		return
+	}
+	for _, file := range dir {
+		distroy(path.Join(basePath, file.Name()), timeToWrite)
+	}
 
+	fmt.Println("Finished")
 }
