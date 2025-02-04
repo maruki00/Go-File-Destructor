@@ -24,7 +24,7 @@ func distroy(filePath string, writeTimes int) {
 		}
 		file.Write(getRandomData())
 	}
-        os.Remove(filePath)
+	os.Remove(filePath)
 }
 
 func run(basePath string, writeTimes int) {
@@ -33,7 +33,6 @@ func run(basePath string, writeTimes int) {
 		fmt.Println("Error : ", err.Error())
 		return
 	}
-	lenFiles := len(dir)
 	counter := 0
 	for _, file := range dir {
 		if file.IsDir() {
