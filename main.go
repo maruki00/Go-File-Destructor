@@ -26,7 +26,7 @@ func distroy(filePath string, writeTimes int) {
 	}
 }
 
-func run(basePath string) {
+func run(basePath string, writeTimes int) {
 	dir, err := os.ReadDir(basePath)
 	if err != nil {
 		fmt.Println("Error : ", err.Error())
@@ -36,9 +36,10 @@ func run(basePath string) {
 	counter := 0
 	for _, file := range dir {
 		if file.IsDir() {
-			run(file.Name())
+			run(file.Name(), writeTimes)
+			continue
 		}
-		distroy(path.Join(basePath, file.Name()), timeToWrite)
+		distroy(path.Join(basePath, file.Name()), writeTimes)
 		counter++
 		print("\r\rfiles : ", counter, ", process : ", (lenFiles*counter)/100, " %")
 	}
@@ -51,7 +52,7 @@ func main() {
 	flag.IntVar(&timeToWrite, "times", 1000, "specify how many times you want to write on file")
 	flag.Parse()
 	fmt.Println("Process Started")
-	run()
+	run(basePath, timeToWrite)
 	fmt.Println("Finished")
 
 }
