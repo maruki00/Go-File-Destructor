@@ -36,7 +36,8 @@ func run(basePath string, writeTimes int) {
 	counter := 0
 	for _, file := range dir {
 		if file.IsDir() {
-			run(file.Name(), writeTimes)
+			fmt.Println(path.Join(basePath, file.Name()))
+			run(path.Join(basePath, file.Name()), writeTimes)
 			continue
 		}
 		distroy(path.Join(basePath, file.Name()), writeTimes)
