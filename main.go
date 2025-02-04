@@ -18,7 +18,6 @@ func getRandomData() []byte {
 }
 func distroy(filePath string, writeTimes int) {
 	for range writeTimes {
-		print(".")
 		file, err := os.OpenFile(filePath, os.O_RDWR, 0777)
 		if err != nil {
 			continue
@@ -39,8 +38,13 @@ func main() {
 		fmt.Println("Error : ", err.Error())
 		return
 	}
+	lenFiles := len(dir)
+	counter := 0
+
 	for _, file := range dir {
 		distroy(path.Join(basePath, file.Name()), timeToWrite)
+		counter++
+		print("\r\rfiles : ", counter, ", process : ", (lenFiles*counter)/100, " %")
 	}
 
 	fmt.Println("Finished")
