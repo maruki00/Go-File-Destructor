@@ -46,12 +46,19 @@ func run(basePath string, writeTimes int) {
 	}
 }
 
+func usage() {
+	fmt.Printf("usage : ./%s -path=the path of the file \n", os.Args[0])
+}
 func main() {
 	var basePath string
 	var timeToWrite int
 	flag.StringVar(&basePath, "path", "", "specify the path of files")
 	flag.IntVar(&timeToWrite, "times", 1000, "specify how many times you want to write on file")
 	flag.Parse()
+	if basePath == "" {
+		usage()
+		return
+	}
 	fmt.Println("Process Started")
 	run(basePath, timeToWrite)
 	fmt.Println("Finished")
