@@ -47,7 +47,7 @@ func run(basePath string, writeTimes int) {
 }
 
 func usage() {
-	fmt.Printf("usage : ./%s -path=the path of the file \n", os.Args[0])
+	fmt.Printf("usage : ./%s -path=[the path of the file] \n", os.Args[0])
 }
 func main() {
 	var basePath string
