@@ -36,7 +36,7 @@ func distroytDir(basePath string, writeTimes int) {
 	counter := 0
 	for _, file := range dir {
 		if file.IsDir() {
-			run(path.Join(basePath, file.Name()), writeTimes)
+			distroytDir(path.Join(basePath, file.Name()), writeTimes)
 			os.Remove(path.Join(basePath, file.Name()))
 			continue
 		}
@@ -46,12 +46,12 @@ func distroytDir(basePath string, writeTimes int) {
 }
 
 func usage() {
-	fmt.Printf("usage : ./%s -path=[the path of the file] \n", os.Args[0])
+	fmt.Printf("usage: \n%s [options]\nOptions:\n\t-path=[the path of the file]\n\t-type=[file/dir]\n\t-times=[times to write]\n", os.Args[0])
 }
 func main() {
-	funcs :=map[string]func {
-		"file": distroy,
-		"dir": run
+	funcs := map[string]func(basePath string, writeTimes int){
+		"file": distroytFile,
+		"dir":  distroytDir,
 	}
 	var basePath string
 	var tp string
@@ -65,9 +65,11 @@ func main() {
 		return
 	}
 	fmt.Println("Process Started")
-	if tp == "file" {
-		distroy(basePath, timeToWrite)
-	} 
+	run, ok := funcs[tp]
+	if !ok {
+		fmt.Println("operation doesnt sipported.")
+		return
+	}
 	run(basePath, timeToWrite)
 	fmt.Println("Finished")
 
