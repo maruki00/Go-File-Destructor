@@ -16,7 +16,7 @@ func getRandomData() []byte {
 	}
 	return data
 }
-func distroy(filePath string, writeTimes int) {
+func distroytFile(filePath string, writeTimes int) {
 	for range writeTimes {
 		file, err := os.OpenFile(filePath, os.O_RDWR, 0777)
 		if err != nil {
@@ -27,7 +27,7 @@ func distroy(filePath string, writeTimes int) {
 	os.Remove(filePath)
 }
 
-func run(basePath string, writeTimes int) {
+func distroytDir(basePath string, writeTimes int) {
 	dir, err := os.ReadDir(basePath)
 	if err != nil {
 		fmt.Println("Error : ", err.Error())
@@ -40,9 +40,8 @@ func run(basePath string, writeTimes int) {
 			os.Remove(path.Join(basePath, file.Name()))
 			continue
 		}
-		distroy(path.Join(basePath, file.Name()), writeTimes)
+		distroytFile(path.Join(basePath, file.Name()), writeTimes)
 		counter++
-		print("\r\rfiles : ", counter)
 	}
 }
 
@@ -50,9 +49,15 @@ func usage() {
 	fmt.Printf("usage : ./%s -path=[the path of the file] \n", os.Args[0])
 }
 func main() {
+	funcs :=map[string]func {
+		"file": distroy,
+		"dir": run
+	}
 	var basePath string
+	var tp string
 	var timeToWrite int
 	flag.StringVar(&basePath, "path", "", "specify the path of files")
+	flag.StringVar(&tp, "type", "file", "specify the path of files")
 	flag.IntVar(&timeToWrite, "times", 1000, "specify how many times you want to write on file")
 	flag.Parse()
 	if basePath == "" {
@@ -60,6 +65,9 @@ func main() {
 		return
 	}
 	fmt.Println("Process Started")
+	if tp == "file" {
+		distroy(basePath, timeToWrite)
+	} 
 	run(basePath, timeToWrite)
 	fmt.Println("Finished")
 
