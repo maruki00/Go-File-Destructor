@@ -1,32 +1,67 @@
-# Go File Destructor
+# gofd
 
-Go File Destructor is a simple and effective command-line tool written in Go for securely deleting files and directories. It works by overwriting data multiple times before deletion, ensuring that sensitive content cannot be recovered.
+**gofd** is a command-line utility written in Go for securely deleting files and directories. It ensures that sensitive data is overwritten multiple times before deletion, making recovery extremely difficult.
 
 ## Features
 
-- Securely delete files or entire directories
+- Secure deletion of files and directories
 - Customizable number of overwrite passes
 - Lightweight and fast
-- Written in Go — easy to build and run on any platform
+- Cross-platform support
 
-## Installation
-
-### Requirements
+## Requirements
 
 - Go 1.16 or higher
 
-### Build
+## Installation
 
 1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/maruki00/Go-File-Destructor.git
-   cd Go-File-Destructor
-   ```
-2. Build the Project
-
-Make sure you are inside the project directory:
-
 ```bash
-cd Go-File-Destructor
-go build -o file-destructor main.go
+   git clone https://github.com/maruki00/gofd.git
+```
+
+2. Navigate to the project directory:
+```bash
+   cd gofd
+```
+
+3. Build the executable:
+```bash
+   go build -o gofd main.go
+```
+
+## Usage
+
+Run the program with the following options:
+```bash
+gofd [options]
+```
+Options:
+
+- -path: The full path of the file or directory to delete
+- -type: Specify 'file' or 'dir' depending on the target
+- -times: Number of times to overwrite the content before deletion
+
+## Examples
+
+1. To securely delete a file:
+   ```bash
+   gofd -path=/home/user/secret.txt -type=file -times=5
+   ```
+
+2. To securely delete a directory:
+```bash
+   gofd -path=/home/user/old_logs -type=dir -times=3
+```
+
+## Disclaimer
+
+Use with caution. This tool will permanently destroy data, and it cannot be recovered.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Author
+
+Developed by maruki00
