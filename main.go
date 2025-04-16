@@ -46,14 +46,12 @@ func distroytDir(basePath string, writeTimes int) {
 }
 
 func usage() {
-	fmt.Printf(`
-		   usage: 
-		   	%s [options]
-		   Options:
-		   	-path=[the path of the file]
-		   	-type=[file/dir]
-		   	-times=[times to write]
-	`, os.Args[0])
+	fmt.Printf("usage:\n")
+	fmt.Printf("  %s [options]\n", os.Args[0])
+	fmt.Printf("Options:\n")
+	fmt.Printf("  -path=[the path of the file]\n")
+	fmt.Printf("  -type=[file/dir]\n")
+	fmt.Printf("  -times=[times to write]\n")
 }
 func main() {
 	funcs := map[string]func(basePath string, writeTimes int){
